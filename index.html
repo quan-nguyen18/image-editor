@@ -2,8 +2,88 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Simple Image Editor</title>
+  <title>Image Editor</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f6f8fa;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #1e1e2f;
+      color: white;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .upload-btn {
+      background: linear-gradient(to right, #00d2ff, #3a47d5);
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .container {
+      display: flex;
+      height: calc(100vh - 60px);
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #2c2c3e;
+      color: white;
+      padding: 20px;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .tool-list button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      background: #444;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .tool-list button:hover {
+      background: #00d2ff;
+    }
+
+    .editor {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ffffff;
+      overflow: auto;
+    }
+
+    canvas {
+      max-width: 90%;
+      max-height: 90%;
+      border: 1px solid #ccc;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -12,21 +92,23 @@
     <input type="file" id="file-input" accept="image/*" hidden>
   </header>
 
-  <main>
+  <div class="container">
     <aside class="sidebar">
-      <h3>Tools</h3>
-      <button onclick="applyGrayscale()">Grayscale</button>
-      <button onclick="applySobelX()">Sobel X</button>
-      <button onclick="applySobelY()">Sobel Y</button>
-      <button onclick="rotateImage()">Rotate</button>
-      <button onclick="cropImage()">Crop</button>
-      <button onclick="resetImage()">Reset</button>
+      <h3>Recommended Tools</h3>
+      <div class="tool-list">
+        <button onclick="applyGrayscale()">Grayscale</button>
+        <button onclick="applySobelX()">Sobel X</button>
+        <button onclick="applySobelY()">Sobel Y</button>
+        <button onclick="rotateImage()">Rotate</button>
+        <button onclick="cropImage()">Crop</button>
+        <button onclick="resetImage()">Reset</button>
+      </div>
     </aside>
 
-    <section class="editor">
+    <main class="editor">
       <canvas id="canvas"></canvas>
-    </section>
-  </main>
+    </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
