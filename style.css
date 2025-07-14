@@ -44,3 +44,33 @@ footer {
   background: #f0f0f0;
   font-size: 14px;
 }
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 40px;
+  justify-items: center;
+}
+
+.tool-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.2s, box-shadow 0.2s;
+  max-width: 300px;
+}
+
+.tool-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.tool-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: #4CAF50;
+}
