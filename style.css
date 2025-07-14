@@ -4,7 +4,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f7f8fc;
+  background: #f4f7fb;
   color: #333;
 }
 
@@ -28,27 +28,31 @@ header h1 {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 30px;
   padding: 40px;
+  justify-items: center;
 }
 
 /* Ô công cụ */
 .tool-card {
   background: #fff;
-  border-radius: 12px;
-  padding: 20px;
+  border: 2px solid #dbe4ea;
+  border-radius: 20px;
+  padding: 25px;
   text-align: center;
   text-decoration: none;
   color: #333;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.2s ease;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+  transition: all 0.25s ease;
+  max-width: 300px;
 }
 
 .tool-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  border-color: #c0d8c8;
 }
 
 .tool-icon {
-  font-size: 36px;
+  font-size: 40px;
   color: #4CAF50;
   margin-bottom: 10px;
 }
