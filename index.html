@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Editor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🖼️ Image Editor</h1>
+    <input type="file" id="upload">
+    <canvas id="canvas"></canvas>
+
+    <div class="buttons">
+      <button onclick="rotate()">Xoay</button>
+      <button onclick="brightness(20)">Tăng sáng</button>
+      <button onclick="brightness(-20)">Giảm sáng</button>
+      <button onclick="cut()">Cắt ảnh</button>
+      <button onclick="sobelX()">Sobel X</button>
+      <button onclick="sobelY()">Sobel Y</button>
+      <button onclick="reset()">Reset</button>
+    </div>
+    <div id="loading">⏳ Đang xử lý ảnh...</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
