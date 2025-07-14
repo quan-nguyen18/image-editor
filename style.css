@@ -1,106 +1,46 @@
-/* Reset & Base */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f0f2f5;
-  color: #1f1f1f;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+  background: #f5f5f5;
 }
 
-/* Header */
 header {
   background: #1e1e2f;
   color: white;
-  padding: 12px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.logo {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.upload-btn {
-  background: linear-gradient(135deg, #00d2ff, #3a47d5);
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.upload-btn:hover {
-  opacity: 0.9;
-  transform: scale(1.03);
-}
-
-/* Layout */
-.container {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
-}
-
-/* Sidebar */
-.sidebar {
-  width: 240px;
-  background: #2c2c3e;
-  color: white;
   padding: 20px;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  text-align: center;
 }
 
-.sidebar h3 {
-  margin: 0 0 8px;
-  font-size: 18px;
-  font-weight: 600;
-  border-bottom: 1px solid #444;
-  padding-bottom: 6px;
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+  padding: 40px;
+  max-width: 900px;
+  margin: auto;
 }
 
-.tool-list button {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  background: #3f3f57;
-  border: none;
-  border-radius: 6px;
-  color: #fff;
-  font-size: 15px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.tool-list button:hover {
-  background: #00d2ff;
-}
-
-/* Main editor */
-.editor {
-  flex: 1;
+.tool {
   background: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: auto;
-  padding: 20px;
+  padding: 30px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  transition: transform 0.2s, background 0.3s;
 }
 
-canvas {
-  max-width: 100%;
-  max-height: 100%;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
+.tool:hover {
+  background: #e0f7fa;
+  transform: translateY(-3px);
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #f0f0f0;
+  font-size: 14px;
 }

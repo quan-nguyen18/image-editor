@@ -1,115 +1,27 @@
+<!-- index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Image Editor</title>
+  <title>Các công cụ chỉnh sửa ảnh</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f6f8fa;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      background-color: #1e1e2f;
-      color: white;
-    }
-
-    .logo {
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .upload-btn {
-      background: linear-gradient(to right, #00d2ff, #3a47d5);
-      border: none;
-      padding: 8px 14px;
-      border-radius: 6px;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .container {
-      display: flex;
-      height: calc(100vh - 60px);
-    }
-
-    .sidebar {
-      width: 220px;
-      background: #2c2c3e;
-      color: white;
-      padding: 20px;
-    }
-
-    .sidebar h3 {
-      margin-top: 0;
-      font-size: 18px;
-    }
-
-    .tool-list button {
-      display: block;
-      margin: 10px 0;
-      padding: 10px;
-      width: 100%;
-      background: #444;
-      border: none;
-      color: white;
-      border-radius: 4px;
-      cursor: pointer;
-      text-align: left;
-    }
-
-    .tool-list button:hover {
-      background: #00d2ff;
-    }
-
-    .editor {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #ffffff;
-      overflow: auto;
-    }
-
-    canvas {
-      max-width: 90%;
-      max-height: 90%;
-      border: 1px solid #ccc;
-    }
-  </style>
 </head>
 <body>
   <header>
-    <div class="logo">Image Editor</div>
-    <button class="upload-btn" onclick="document.getElementById('file-input').click()">Upload Image</button>
-    <input type="file" id="file-input" accept="image/*" hidden>
+    <h1>Các công cụ chỉnh sửa ảnh</h1>
   </header>
 
-  <div class="container">
-    <aside class="sidebar">
-      <h3>Recommended Tools</h3>
-      <div class="tool-list">
-        <button onclick="applyGrayscale()">Grayscale</button>
-        <button onclick="applySobelX()">Sobel X</button>
-        <button onclick="applySobelY()">Sobel Y</button>
-        <button onclick="rotateImage()">Rotate</button>
-        <button onclick="cropImage()">Crop</button>
-        <button onclick="resetImage()">Reset</button>
-      </div>
-    </aside>
+  <main class="tool-grid">
+    <a href="compress.html" class="tool">🗜️ Nén ảnh</a>
+    <a href="crop.html" class="tool">✂️ Cắt ảnh</a>
+    <a href="rotate.html" class="tool">↻ Xoay ảnh</a>
+    <a href="grayscale.html" class="tool">🌑 Làm xám</a>
+    <a href="sobelx.html" class="tool">🧪 Sobel X</a>
+    <a href="sobely.html" class="tool">🔬 Sobel Y</a>
+  </main>
 
-    <main class="editor">
-      <canvas id="canvas"></canvas>
-    </main>
-  </div>
-
-  <script src="script.js"></script>
+  <footer>
+    <p>&copy; 2025 - Trang chỉnh sửa ảnh theo phong cách iloveimg</p>
+  </footer>
 </body>
 </html>

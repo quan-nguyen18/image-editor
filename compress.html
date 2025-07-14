@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Nén ảnh</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><h1>Nén ảnh</h1></header>
+  <main style="text-align:center; padding: 40px;">
+    <input type="file" id="upload"><br><br>
+    <canvas id="canvas" style="max-width:100%; border:1px solid #ccc;"></canvas><br><br>
+    <button onclick="compressImage()">Nén ảnh</button>
+    <a id="download" href="#" download="compressed.png" style="display:none">Tải ảnh nén</a>
+  </main>
+  <script src="js/compress.js"></script>
+</body>
+</html>

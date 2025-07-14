@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Làm ảnh trắng đen</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><h1>Làm ảnh trắng đen</h1></header>
+  <main style="text-align:center; padding: 40px;">
+    <input type="file" id="upload"><br><br>
+    <canvas id="canvas" style="max-width:100%; border:1px solid #ccc;"></canvas><br><br>
+    <button onclick="applyGrayscale()">Chuyển sang trắng đen</button>
+    <button onclick="resetImage()">Khôi phục</button>
+  </main>
+  <script src="js/grayscale.js"></script>
+</body>
+</html>

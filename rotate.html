@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Xoay ảnh</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><h1>Xoay ảnh</h1></header>
+  <main style="text-align:center; padding: 40px;">
+    <input type="file" id="upload"><br><br>
+    <canvas id="canvas" style="max-width:100%; border:1px solid #ccc;"></canvas><br><br>
+    <button onclick="rotateImage()">Xoay 90 độ</button>
+    <button onclick="resetImage()">Khôi phục</button>
+  </main>
+  <script src="js/rotate.js"></script>
+</body>
+</html>
