@@ -5,14 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>✨ Chỉnh sửa ảnh Pastel</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Caveat:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <style>
+    .big-welcome {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Caveat', cursive;
+      font-size: clamp(3rem, 14vw, 8rem);
+      color: #f497b6;
+      opacity: 0.15;
+      white-space: nowrap;
+      z-index: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .glass-box {
+      position: relative;
+      z-index: 2;
+    }
+  </style>
 </head>
 <body>
+  <!-- Chữ welcome lớn mờ -->
+  <div class="big-welcome">WELCOME</div>
+
   <!-- Giao diện chào -->
   <section class="hero" id="hero">
     <div class="glass-box">
-      <h1>Chỉnh sửa ảnh pastel miễn phí</h1>
+      <h1>Chỉnh sửa ảnh online
+</h1>
       <p>Tải ảnh lên, xoay, tăng sáng, Sobel và chia sẻ ảnh một cách thật “nghệ”.</p>
       <label for="upload" class="upload-btn">
         <i class="bi bi-upload"></i> Tải lên hình ảnh
@@ -44,16 +69,16 @@
         <button class="btn outline" onclick="applyEdit('reset')">
           <i class="bi bi-arrow-counterclockwise"></i> Khôi phục
         </button>
-       <label class="btn outline">
-  <i class="bi bi-image"></i> Đổi ảnh
-  <input type="file" id="uploadAgain" accept="image/*" hidden />
-</label>
 
+        <label class="btn outline">
+          <i class="bi bi-image"></i> Đổi ảnh
+          <input type="file" id="uploadAgain" accept="image/*" hidden />
+        </label>
       </div>
     </div>
   </section>
 
-  <!-- Nối script xử lý -->
+  <!-- Script xử lý -->
   <script src="script.js"></script>
 </body>
-</html>
+</html> 
