@@ -1,4 +1,5 @@
-/* style.css */
+/* Font chính */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Caveat:wght@700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -8,9 +9,28 @@
 }
 
 body {
-  background: linear-gradient(to bottom right, #fff8fb, #fbddea);
+  background: linear-gradient(to bottom right, #fff0f5, #e0f7fa); /* Hồng phấn → xanh baby */
   color: #333;
   min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Welcome chữ lớn */
+.big-welcome {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Caveat', cursive;
+  font-size: clamp(4rem, 13vw, 14rem);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #ffc1e3;
+  opacity: 0.18;
+  white-space: nowrap;
+  z-index: 0;
+  pointer-events: none;
+  text-shadow: 0 0 14px rgba(255, 192, 227, 0.3);
 }
 
 .hero {
@@ -19,10 +39,12 @@ body {
   align-items: center;
   min-height: 100vh;
   padding: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .glass-box {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 20px;
   padding: 3rem;
   text-align: center;
@@ -31,6 +53,8 @@ body {
   box-shadow: 0 8px 30px rgba(0,0,0,0.1);
   border: 1px solid rgba(255, 182, 193, 0.3);
   transition: transform 0.3s ease;
+  z-index: 2;
+  position: relative;
 }
 
 .glass-box:hover {
@@ -49,7 +73,8 @@ body {
   font-size: 1rem;
 }
 
-.upload-btn {
+/* Nút upload ảnh (chuyển trang hoặc file) */
+.upload-btn, .btn {
   display: inline-block;
   background: #f8a8c4;
   color: white;
@@ -59,14 +84,17 @@ body {
   font-weight: 600;
   font-size: 1rem;
   box-shadow: 0 4px 14px rgba(248, 168, 196, 0.4);
+  text-decoration: none;
   transition: all 0.3s ease;
 }
 
-.upload-btn:hover {
+.upload-btn:hover,
+.btn:hover {
   background: #f38db3;
   transform: scale(1.05);
 }
 
+/* Giao diện chỉnh sửa */
 .editor {
   display: none;
   padding: 2rem;
@@ -82,7 +110,7 @@ body {
 
 .canvas-group {
   max-width: 90vw;
-  background: white;
+  background: #fff;
   border-radius: 20px;
   padding: 1rem;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
@@ -106,8 +134,9 @@ canvas {
   margin-top: 1rem;
 }
 
+/* Nút chỉnh sửa */
 .btn {
-  background: #f38db3;
+  background: #f8a8c4; /* Hồng chủ đạo */
   color: white;
   border: none;
   padding: 0.7rem 1.4rem;
@@ -124,12 +153,34 @@ canvas {
   transform: scale(1.05);
 }
 
+/* Nút outline phụ - màu xanh baby */
 .btn.outline {
   background: transparent;
-  border: 2px solid #f38db3;
-  color: #f38db3;
+  border: 2px solid #a5d8ff;
+  color: #339af0;
+  box-shadow: none;
 }
 
 .btn.outline:hover {
-  background: #fde7ef;
+  background: #e3f7ff;
+  color: #1c7ed6;
+}
+
+/* Nếu bạn muốn thêm nút cam đào hoặc tím pastel thì có thể thêm class riêng nữa */
+.btn.peach {
+  background: #ffc9a9;
+}
+.btn.lavender {
+  background: #e6ccff;
+}
+
+/* Responsive bonus */
+@media (max-width: 600px) {
+  .glass-box {
+    padding: 2rem;
+  }
+  .btn, .upload-btn {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+  }
 }

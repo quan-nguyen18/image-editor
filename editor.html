@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎨 Chỉnh sửa ảnh</title>
+  <title>✨ Chỉnh sửa ảnh Pastel</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 </head>
 <body>
@@ -12,13 +13,27 @@
     <div class="canvas-group">
       <canvas id="canvas"></canvas>
       <div class="tools">
-        <!-- Các nút chỉnh sửa -->
-        <button class="btn" onclick="applyEdit('rotate')"><i class="bi bi-arrow-clockwise"></i> Xoay</button>
-        <button class="btn" onclick="applyEdit('brighten')"><i class="bi bi-brightness-high"></i> Sáng</button>
-        <button class="btn" onclick="applyEdit('darken')"><i class="bi bi-moon-fill"></i> Tối</button>
-        <button class="btn" onclick="applyEdit('sobelX')"><i class="bi bi-border-top"></i> Sobel X</button>
-        <button class="btn" onclick="applyEdit('sobelY')"><i class="bi bi-border-left"></i> Sobel Y</button>
-        <button class="btn outline" onclick="applyEdit('reset')"><i class="bi bi-arrow-counterclockwise"></i> Khôi phục</button>
+        <button class="btn" onclick="applyEdit('rotate')">
+          <i class="bi bi-arrow-clockwise"></i> Xoay 90°
+        </button>
+        <button class="btn" onclick="applyEdit('brighten')">
+          <i class="bi bi-brightness-high"></i> Tăng sáng
+        </button>
+        <button class="btn" onclick="applyEdit('darken')">
+          <i class="bi bi-moon-fill"></i> Giảm sáng
+        </button>
+        <button class="btn" onclick="applyEdit('sobelX')">
+          <i class="bi bi-border-top"></i> Cạnh ngang (Sobel X)
+        </button>
+        <button class="btn" onclick="applyEdit('sobelY')">
+          <i class="bi bi-border-left"></i> Cạnh dọc (Sobel Y)
+        </button>
+        <button class="btn outline" onclick="applyEdit('reset')">
+          <i class="bi bi-arrow-counterclockwise"></i> Khôi phục
+        </button>
+        <button class="btn outline" onclick="resetEditor()">
+          <i class="bi bi-arrow-left-circle"></i> Đổi ảnh
+        </button>
       </div>
     </div>
   </section>

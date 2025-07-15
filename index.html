@@ -3,29 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>✨ Chào mừng</title>
+  <title>✨ Chỉnh sửa ảnh Pastel</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 </head>
 <body>
   <section class="hero">
     <div class="glass-box">
-      <h1>✨ Trình chỉnh sửa ảnh Pastel</h1>
-      <p>Chọn ảnh để bắt đầu chỉnh sửa.</p>
-      <label for="upload" class="upload-btn">📤 Tải lên hình ảnh</label>
-      <input type="file" id="upload" accept="image/*" hidden />
+      <h1>Trình chỉnh sửa ảnh pastel miễn phí</h1>
+      <p>Tải ảnh lên, xoay, tăng sáng, Sobel và chia sẻ ảnh một cách thật “nghệ”.</p>
+      <!-- Chuyển sang trang chỉnh sửa -->
+      <a href="editor.html" class="upload-btn">
+        <i class="bi bi-upload"></i> Tải lên hình ảnh
+      </a>
     </div>
   </section>
-
-  <script>
-    document.getElementById('upload').addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.onload = () => {
-        localStorage.setItem('uploadedImage', reader.result);
-        window.location.href = 'editor.html'; // Chuyển trang tự động
-      };
-      if (file) reader.readAsDataURL(file);
-    });
-  </script>
 </body>
 </html>
