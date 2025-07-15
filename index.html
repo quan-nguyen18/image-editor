@@ -1,33 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Image Editor</title>
+  <title>✨ Chỉnh sửa ảnh Pastel</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 </head>
 <body>
-  <h1>✨ Trình chỉnh sửa ảnh</h1>
-  <input type="file" id="upload" accept="image/*" />
-
-  <div class="container">
-    <div class="image-frame">
-      <h3>Ảnh gốc</h3>
-      <canvas id="originalCanvas"></canvas>
+  <!-- Trang chào -->
+  <section class="hero">
+    <div class="glass-box">
+      <h1>Trình chỉnh sửa ảnh pastel miễn phí</h1>
+      <p>Tải ảnh lên, xoay, tăng sáng, Sobel và chia sẻ ảnh một cách thật “nghệ”.</p>
+      <label for="upload" class="upload-btn"><i class="bi bi-upload"></i> Tải lên hình ảnh</label>
+      <input type="file" id="upload" accept="image/*" hidden />
     </div>
-    <div class="image-frame">
-      <h3>Ảnh đã xử lý</h3>
-      <canvas id="editedCanvas"></canvas>
-    </div>
-  </div>
+  </section>
 
-  <div class="buttons">
-    <button class="btn" onclick="applyFilter('rotate')">Xoay</button>
-    <button class="btn" onclick="applyFilter('brighten')">Tăng sáng</button>
-    <button class="btn" onclick="applyFilter('darken')">Giảm sáng</button>
-    <button class="btn" onclick="applyFilter('sobelX')">Sobel X</button>
-    <button class="btn" onclick="applyFilter('sobelY')">Sobel Y</button>
-  </div>
+  <!-- Giao diện chỉnh sửa -->
+  <section class="editor" id="editor">
+    <div class="canvas-group">
+      <canvas id="canvas"></canvas>
+      <div class="tools">
+        <button class="btn" onclick="applyEdit('rotate')">
+          <i class="bi bi-arrow-clockwise"></i> Xoay 90°
+        </button>
+        <button class="btn" onclick="applyEdit('brighten')">
+          <i class="bi bi-brightness-high"></i> Tăng sáng
+        </button>
+        <button class="btn" onclick="applyEdit('darken')">
+          <i class="bi bi-moon-fill"></i> Giảm sáng
+        </button>
+        <button class="btn" onclick="applyEdit('sobelX')">
+          <i class="bi bi-border-top"></i> Cạnh ngang (Sobel X)
+        </button>
+        <button class="btn" onclick="applyEdit('sobelY')">
+          <i class="bi bi-border-left"></i> Cạnh dọc (Sobel Y)
+        </button>
+        <button class="btn outline" onclick="applyEdit('reset')">
+          <i class="bi bi-arrow-counterclockwise"></i> Khôi phục
+        </button>
+
+        <!-- Nút đổi ảnh tại chỗ -->
+        <label class="btn outline" for="uploadAgain">
+          <i class="bi bi-images"></i> Đổi ảnh
+        </label>
+        <input type="file" id="uploadAgain" accept="image/*" hidden />
+      </div>
+    </div>
+  </section>
 
   <script src="script.js"></script>
 </body>

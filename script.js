@@ -1,98 +1,157 @@
 const upload = document.getElementById('upload');
-const originalCanvas = document.getElementById('originalCanvas');
-const editedCanvas = document.getElementById('editedCanvas');
-const oCtx = originalCanvas.getContext('2d');
-const eCtx = editedCanvas.getContext('2d');
+const uploadAgain = document.getElementById('uploadAgain');
+const hero = document.querySelector('.hero');
+const editor = document.getElementById('editor');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
 
-let img = new Image();
+let originalImage = null;
+let rotation = 0;
+let brightness = 0;
 
-upload.addEventListener('change', e => {
+// Chọn ảnh ban đầu
+upload.addEventListener('change', (e) => {
   const file = e.target.files[0];
-  if (!file) return;
   const reader = new FileReader();
-  reader.onload = event => {
-    img.src = event.target.result;
+  reader.onload = () => {
+    const img = new Image();
+    img.onload = () => {
+      originalImage = img;
+      rotation = 0;
+      brightness = 0;
+      renderImage();
+      hero.style.display = 'none';
+      editor.style.display = 'flex';
+    };
+    img.src = reader.result;
   };
-  reader.readAsDataURL(file);
+  if (file) reader.readAsDataURL(file);
 });
 
-img.onload = () => {
-  originalCanvas.width = img.width;
-  originalCanvas.height = img.height;
-  editedCanvas.width = img.width;
-  editedCanvas.height = img.height;
-  oCtx.drawImage(img, 0, 0);
-  eCtx.drawImage(img, 0, 0);
-};
+// Đổi ảnh trực tiếp trong giao diện chỉnh sửa
+uploadAgain.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  const reader = new FileReader();
+  reader.onload = () => {
+    const img = new Image();
+    img.onload = () => {
+      originalImage = img;
+      rotation = 0;
+      brightness = 0;
+      renderImage();
+    };
+    img.src = reader.result;
+  };
+  if (file) reader.readAsDataURL(file);
+});
 
-function applyFilter(type) {
-  let imageData = oCtx.getImageData(0, 0, originalCanvas.width, originalCanvas.height);
-  let data = imageData.data;
+// Áp dụng thao tác chỉnh sửa
+function applyEdit(type) {
+  if (!originalImage) return;
 
-  switch (type) {
-    case 'rotate':
-      eCtx.clearRect(0, 0, editedCanvas.width, editedCanvas.height);
-      eCtx.save();
-      eCtx.translate(editedCanvas.width / 2, editedCanvas.height / 2);
-      eCtx.rotate(Math.PI / 2);
-      eCtx.drawImage(originalCanvas, -originalCanvas.height / 2, -originalCanvas.width / 2);
-      eCtx.restore();
-      return;
-    case 'brighten':
-      for (let i = 0; i < data.length; i += 4) {
-        data[i] = Math.min(data[i] + 30, 255);
-        data[i + 1] = Math.min(data[i + 1] + 30, 255);
-        data[i + 2] = Math.min(data[i + 2] + 30, 255);
-      }
-      break;
-    case 'darken':
-      for (let i = 0; i < data.length; i += 4) {
-        data[i] = Math.max(data[i] - 30, 0);
-        data[i + 1] = Math.max(data[i + 1] - 30, 0);
-        data[i + 2] = Math.max(data[i + 2] - 30, 0);
-      }
-      break;
-    case 'sobelX':
-    case 'sobelY':
-      applySobel(type);
-      return;
+  if (type === 'rotate') {
+    rotation = (rotation + 90) % 360;
+    renderImage();
+  } else if (type === 'brighten') {
+    brightness += 10;
+    renderImage();
+  } else if (type === 'darken') {
+    brightness -= 10;
+    renderImage();
+  } else if (type === 'reset') {
+    rotation = 0;
+    brightness = 0;
+    renderImage();
+  } else if (type === 'sobelX' || type === 'sobelY') {
+    applySobel(type);
   }
-
-  eCtx.putImageData(imageData, 0, 0);
 }
 
-function applySobel(direction) {
-  const width = originalCanvas.width;
-  const height = originalCanvas.height;
-  const gray = oCtx.getImageData(0, 0, width, height);
-  const grayData = gray.data;
+// Vẽ ảnh lên canvas (có xoay, scale, độ sáng)
+function renderImage() {
+  const radians = rotation * Math.PI / 180;
+  const w = originalImage.width;
+  const h = originalImage.height;
 
-  const getGray = (x, y) => {
-    const i = (y * width + x) * 4;
-    return 0.3 * grayData[i] + 0.59 * grayData[i + 1] + 0.11 * grayData[i + 2];
-  };
+  const canvasMaxW = 600;
+  const canvasMaxH = 500;
 
-  const kernel = direction === 'sobelX'
-    ? [ [-1, 0, 1], [-2, 0, 2], [-1, 0, 1] ]
-    : [ [-1, -2, -1], [0, 0, 0], [1, 2, 1] ];
+  const rotatedW = (rotation % 180 === 0) ? w : h;
+  const rotatedH = (rotation % 180 === 0) ? h : w;
 
-  const output = eCtx.createImageData(width, height);
-  const outData = output.data;
+  canvas.width = canvasMaxW;
+  canvas.height = canvasMaxH;
+
+  ctx.save();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.filter = `brightness(${100 + brightness}%)`;
+
+  const scale = Math.min(canvas.width / rotatedW, canvas.height / rotatedH);
+
+  ctx.translate(canvas.width / 2, canvas.height / 2);
+  ctx.rotate(radians);
+  ctx.scale(scale, scale);
+  ctx.drawImage(originalImage, -w / 2, -h / 2);
+  ctx.restore();
+}
+
+// Bộ lọc Sobel X và Y
+function applySobel(type) {
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const width = imageData.width;
+  const height = imageData.height;
+  const src = imageData.data;
+  const grayscale = new Uint8ClampedArray(width * height);
+
+  for (let i = 0; i < src.length; i += 4) {
+    const avg = 0.3 * src[i] + 0.59 * src[i + 1] + 0.11 * src[i + 2];
+    grayscale[i / 4] = avg;
+  }
+
+  const dst = new Uint8ClampedArray(width * height);
+  const kernelX = [
+    -1, 0, 1,
+    -2, 0, 2,
+    -1, 0, 1
+  ];
+  const kernelY = [
+    -1, -2, -1,
+     0,  0,  0,
+     1,  2,  1
+  ];
 
   for (let y = 1; y < height - 1; y++) {
     for (let x = 1; x < width - 1; x++) {
-      let sum = 0;
+      let gx = 0, gy = 0;
       for (let ky = -1; ky <= 1; ky++) {
         for (let kx = -1; kx <= 1; kx++) {
-          sum += kernel[ky + 1][kx + 1] * getGray(x + kx, y + ky);
+          const pixel = grayscale[(y + ky) * width + (x + kx)];
+          const idx = (ky + 1) * 3 + (kx + 1);
+          gx += kernelX[idx] * pixel;
+          gy += kernelY[idx] * pixel;
         }
       }
-      const index = (y * width + x) * 4;
-      sum = Math.min(255, Math.max(0, Math.abs(sum)));
-      outData[index] = outData[index + 1] = outData[index + 2] = sum;
-      outData[index + 3] = 255;
+      const g = type === 'sobelX' ? Math.abs(gx) : Math.abs(gy);
+      dst[y * width + x] = Math.min(255, g);
     }
   }
 
-  eCtx.putImageData(output, 0, 0);
+  const output = ctx.createImageData(width, height);
+  for (let i = 0; i < dst.length; i++) {
+    const val = dst[i];
+    output.data[i * 4] = val;
+    output.data[i * 4 + 1] = val;
+    output.data[i * 4 + 2] = val;
+    output.data[i * 4 + 3] = 255;
+  }
+
+  ctx.putImageData(output, 0, 0);
+}
+
+// Quay lại trang chọn ảnh
+function resetEditor() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  document.getElementById('upload').value = '';
+  hero.style.display = 'flex';
+  editor.style.display = 'none';
 }
