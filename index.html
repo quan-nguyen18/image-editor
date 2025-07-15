@@ -1,64 +1,34 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Các công cụ chỉnh sửa ảnh</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Editor</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>Các công cụ chỉnh sửa ảnh</h1>
-  </header>
+  <h1>✨ Trình chỉnh sửa ảnh</h1>
+  <input type="file" id="upload" accept="image/*" />
 
-  <main class="tool-grid">
-    <a href="compress.html" class="tool-card">
-      <div class="tool-icon">
-        <img src="assets/icons/compress.svg" alt="Nén ảnh" />
-      </div>
-      <h2>Nén ẢNH</h2>
-      <p>Nén ảnh <strong>JPG, PNG, SVG</strong> và <strong>GIF</strong> để tiết kiệm dung lượng nhưng vẫn đảm bảo chất lượng.</p>
-    </a>
+  <div class="container">
+    <div class="image-frame">
+      <h3>Ảnh gốc</h3>
+      <canvas id="originalCanvas"></canvas>
+    </div>
+    <div class="image-frame">
+      <h3>Ảnh đã xử lý</h3>
+      <canvas id="editedCanvas"></canvas>
+    </div>
+  </div>
 
-    <a href="crop.html" class="tool-card">
-      <div class="tool-icon">
-        <img src="assets/icons/crop.svg" alt="Cắt ảnh" />
-      </div>
-      <h2>Cắt ẢNH</h2>
-      <p>Cắt vùng ảnh mong muốn một cách nhanh chóng và trực quan.</p>
-    </a>
+  <div class="buttons">
+    <button class="btn" onclick="applyFilter('rotate')">Xoay</button>
+    <button class="btn" onclick="applyFilter('brighten')">Tăng sáng</button>
+    <button class="btn" onclick="applyFilter('darken')">Giảm sáng</button>
+    <button class="btn" onclick="applyFilter('sobelX')">Sobel X</button>
+    <button class="btn" onclick="applyFilter('sobelY')">Sobel Y</button>
+  </div>
 
-    <a href="rotate.html" class="tool-card">
-      <div class="tool-icon">
-        <img src="assets/icons/rotate.svg" alt="Xoay ảnh" />
-      </div>
-      <h2>Xoay ẢNH</h2>
-      <p>Xoay ảnh trái, phải hoặc 180° chỉ bằng một cú click.</p>
-    </a>
-
-    <a href="grayscale.html" class="tool-card">
-      <div class="tool-icon">
-        <img src="assets/icons/grayscale.svg" alt="Làm xám" />
-      </div>
-      <h2>Làm XÁM</h2>
-      <p>Biến ảnh màu thành ảnh trắng đen nghệ thuật dễ dàng.</p>
-    </a>
-
-    <a href="sobelx.html" class="tool-card">
-      <div class="tool-icon">
-        <img src="assets/icons/sobelx.svg" alt="Sobel X" />
-      </div>
-      <h2>Sobel X</h2>
-      <p>Phát hiện biên ảnh theo chiều ngang bằng toán tử Sobel.</p>
-    </a>
-
-    <a href="sobely.html" class="tool-card">
-      <div class="tool-icon">
-        <img src="assets/icons/sobely.svg" alt="Sobel Y" />
-      </div>
-      <h2>Sobel Y</h2>
-      <p>Phát hiện biên ảnh theo chiều dọc bằng toán tử Sobel.</p>
-    </a>
-  </main>
-
+  <script src="script.js"></script>
 </body>
 </html>
