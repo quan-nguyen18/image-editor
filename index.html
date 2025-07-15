@@ -36,8 +36,7 @@
   <!-- Giao diện chào -->
   <section class="hero" id="hero">
     <div class="glass-box">
-      <h1>Chỉnh sửa ảnh online
-</h1>
+      <h1>Chỉnh sửa ảnh online</h1>
       <p>Tải ảnh lên, xoay, tăng sáng, Sobel và chia sẻ ảnh một cách thật “nghệ”.</p>
       <label for="upload" class="upload-btn">
         <i class="bi bi-upload"></i> Tải lên hình ảnh
@@ -46,39 +45,92 @@
     </div>
   </section>
 
-  <!-- Giao diện chỉnh sửa -->
-  <section class="editor" id="editor" style="display: none">
-    <div class="canvas-group">
+  <section class="editor" id="editor" style="display: none;">
+  <div class="canvas-group">
+    <div style="position: relative; display: inline-block;">
       <canvas id="canvas"></canvas>
-      <div class="tools">
-        <button class="btn" onclick="applyEdit('rotate')">
-          <i class="bi bi-arrow-clockwise"></i> Xoay 90°
-        </button>
-        <button class="btn" onclick="applyEdit('brighten')">
-          <i class="bi bi-brightness-high"></i> Tăng sáng
-        </button>
-        <button class="btn" onclick="applyEdit('darken')">
-          <i class="bi bi-moon-stars"></i> Giảm sáng
-        </button>
-        <button class="btn" onclick="applyEdit('sobelX')">
-          <i class="bi bi-border-top"></i> Sobel X
-        </button>
-        <button class="btn" onclick="applyEdit('sobelY')">
-          <i class="bi bi-border-left"></i> Sobel Y
-        </button>
-        <button class="btn outline" onclick="applyEdit('reset')">
-          <i class="bi bi-arrow-counterclockwise"></i> Khôi phục
-        </button>
-
-        <label class="btn outline">
-          <i class="bi bi-image"></i> Đổi ảnh
-          <input type="file" id="uploadAgain" accept="image/*" hidden />
-        </label>
-      </div>
+      <canvas id="overlay" style="position: absolute; top: 0; left: 0; pointer-events: none;"></canvas>
     </div>
-  </section>
 
-  <!-- Script xử lý -->
+    <div class="tools">
+      <button class="btn" onclick="applyEdit('rotate')">
+        <i class="bi bi-arrow-clockwise"></i> Xoay 90°
+      </button>
+      <button class="btn" onclick="applyEdit('brighten')">
+        <i class="bi bi-brightness-high"></i> Tăng sáng
+      </button>
+      <button class="btn" onclick="applyEdit('darken')">
+        <i class="bi bi-moon-stars"></i> Giảm sáng
+      </button>
+      <button class="btn" onclick="applyEdit('sobelX')">
+        <i class="bi bi-border-top"></i> Sobel X
+      </button>
+      <button class="btn" onclick="applyEdit('sobelY')">
+        <i class="bi bi-border-left"></i> Sobel Y
+      </button>
+ <button class="btn" onclick="detectObjects()">
+        <i class="bi bi-bounding-box"></i> Phát hiện đối tượng
+      </button>
+
+
+      <button class="btn outline" onclick="applyEdit('reset')">
+        <i class="bi bi-arrow-counterclockwise"></i> Khôi phục
+      </button>
+     
+      <label class="btn outline">
+        <i class="bi bi-image"></i> Đổi ảnh
+        <input type="file" id="uploadAgain" accept="image/*" hidden />
+      </label>
+    </div>
+  </div>
+</section>
+
+  <!-- Script xử lý chỉnh sửa ảnh -->
   <script src="script.js"></script>
+
+  <!-- TensorFlow.js và COCO-SSD -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.15.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+
+  <!-- Script phát hiện đối tượng -->
+  <script>
+    let modelPromise = cocoSsd.load();
+
+    async function detectObjects() {
+      const imageCanvas = document.getElementById('canvas');
+      const overlayCanvas = document.getElementById('overlay');
+      const ctx = overlayCanvas.getContext('2d');
+
+      // Đồng bộ kích thước canvas
+      overlayCanvas.width = imageCanvas.width;
+      overlayCanvas.height = imageCanvas.height;
+
+      const model = await modelPromise;
+
+      const imageDataURL = imageCanvas.toDataURL('image/jpeg');
+      const image = new Image();
+      image.src = imageDataURL;
+
+      image.onload = async () => {
+        // Xóa overlay cũ
+        ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+
+        const predictions = await model.detect(image);
+
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#00FFFF';
+        ctx.font = '16px Inter';
+        ctx.fillStyle = '#00FFFF';
+
+        predictions.forEach(pred => {
+          const [x, y, width, height] = pred.bbox;
+          ctx.strokeRect(x, y, width, height);
+          ctx.fillText(pred.class, x, y > 10 ? y - 5 : y + 15);
+        });
+
+        console.log(predictions);
+      };
+    }
+  </script>
 </body>
-</html> 
+</html>

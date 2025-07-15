@@ -3,7 +3,8 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const hero = document.getElementById('hero');
 const editor = document.getElementById('editor');
-
+const overlay = document.getElementById('overlay');
+const overlayCtx = overlay.getContext('2d');
 let originalImage = new Image();
 let rotation = 0;
 let brightness = 0;
@@ -35,8 +36,10 @@ function applyEdit(type) {
   } else if (type === 'darken') {
     brightness -= 10;
   } else if (type === 'reset') {
-    rotation = 0;
-    brightness = 0;
+  rotation = 0;
+  brightness = 0;
+  clearOverlay(); // ✅ Xóa khung phát hiện đối tượng
+
   } else if (type === 'sobelX' || type === 'sobelY') {
     applySobel(type);
     return;
@@ -130,11 +133,19 @@ uploadAgain.addEventListener('change', function () {
   const reader = new FileReader();
   reader.onload = function (e) {
     originalImage.onload = () => {
+      // Reset toàn bộ trạng thái
       rotation = 0;
       brightness = 0;
+      clearOverlay();
       renderImage();
+
+      // ❌ Không quay về trang welcome nữa
+      // hero.style.display = 'flex';
+      // editor.style.display = 'none';
     };
     originalImage.src = e.target.result;
   };
   reader.readAsDataURL(file);
-});
+});function clearOverlay() {
+  overlayCtx.clearRect(0, 0, overlay.width, overlay.height);
+}
