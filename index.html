@@ -13,11 +13,27 @@
     <div class="glass-box">
       <h1>Trình chỉnh sửa ảnh pastel miễn phí</h1>
       <p>Tải ảnh lên, xoay, tăng sáng, Sobel và chia sẻ ảnh một cách thật “nghệ”.</p>
-      <!-- Chuyển sang trang chỉnh sửa -->
-      <a href="editor.html" class="upload-btn">
+      <!-- Nút tải ảnh -->
+      <label for="upload" class="upload-btn">
         <i class="bi bi-upload"></i> Tải lên hình ảnh
-      </a>
+      </label>
+      <input type="file" id="upload" accept="image/*" hidden />
     </div>
   </section>
+
+  <!-- ✅ JS xử lý chọn ảnh và chuyển trang -->
+  <script>
+    document.getElementById('upload').addEventListener('change', function () {
+      const file = this.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        localStorage.setItem('uploadedImage', e.target.result);
+        window.location.href = 'editor.html';
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
 </body>
 </html>
