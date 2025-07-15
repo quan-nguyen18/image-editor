@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎨 Chỉnh sửa ảnh</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+</head>
+<body>
+  <section class="editor" id="editor">
+    <div class="canvas-group">
+      <canvas id="canvas"></canvas>
+      <div class="tools">
+        <!-- Các nút chỉnh sửa -->
+        <button class="btn" onclick="applyEdit('rotate')"><i class="bi bi-arrow-clockwise"></i> Xoay</button>
+        <button class="btn" onclick="applyEdit('brighten')"><i class="bi bi-brightness-high"></i> Sáng</button>
+        <button class="btn" onclick="applyEdit('darken')"><i class="bi bi-moon-fill"></i> Tối</button>
+        <button class="btn" onclick="applyEdit('sobelX')"><i class="bi bi-border-top"></i> Sobel X</button>
+        <button class="btn" onclick="applyEdit('sobelY')"><i class="bi bi-border-left"></i> Sobel Y</button>
+        <button class="btn outline" onclick="applyEdit('reset')"><i class="bi bi-arrow-counterclockwise"></i> Khôi phục</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

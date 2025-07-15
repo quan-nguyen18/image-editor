@@ -1,73 +1,44 @@
-const upload = document.getElementById('upload');
-const uploadAgain = document.getElementById('uploadAgain');
-const hero = document.querySelector('.hero');
-const editor = document.getElementById('editor');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-let originalImage = null;
+let originalImage = new Image();
 let rotation = 0;
 let brightness = 0;
 
-// Chọn ảnh ban đầu
-upload.addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  const reader = new FileReader();
-  reader.onload = () => {
-    const img = new Image();
-    img.onload = () => {
-      originalImage = img;
-      rotation = 0;
-      brightness = 0;
-      renderImage();
-      hero.style.display = 'none';
-      editor.style.display = 'flex';
-    };
-    img.src = reader.result;
-  };
-  if (file) reader.readAsDataURL(file);
-});
+window.onload = () => {
+  const imgData = localStorage.getItem('uploadedImage');
+  if (!imgData) {
+    alert("Không tìm thấy ảnh! Quay lại trang chính.");
+    window.location.href = "index.html";
+    return;
+  }
 
-// Đổi ảnh trực tiếp trong giao diện chỉnh sửa
-uploadAgain.addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  const reader = new FileReader();
-  reader.onload = () => {
-    const img = new Image();
-    img.onload = () => {
-      originalImage = img;
-      rotation = 0;
-      brightness = 0;
-      renderImage();
-    };
-    img.src = reader.result;
+  originalImage.onload = () => {
+    renderImage();
   };
-  if (file) reader.readAsDataURL(file);
-});
+  originalImage.src = imgData;
+};
 
-// Áp dụng thao tác chỉnh sửa
 function applyEdit(type) {
   if (!originalImage) return;
 
   if (type === 'rotate') {
     rotation = (rotation + 90) % 360;
-    renderImage();
   } else if (type === 'brighten') {
     brightness += 10;
-    renderImage();
   } else if (type === 'darken') {
     brightness -= 10;
-    renderImage();
   } else if (type === 'reset') {
     rotation = 0;
     brightness = 0;
-    renderImage();
   } else if (type === 'sobelX' || type === 'sobelY') {
     applySobel(type);
+    return;
   }
+
+  renderImage();
 }
 
-// Vẽ ảnh lên canvas (có xoay, scale, độ sáng)
 function renderImage() {
   const radians = rotation * Math.PI / 180;
   const w = originalImage.width;
@@ -95,7 +66,6 @@ function renderImage() {
   ctx.restore();
 }
 
-// Bộ lọc Sobel X và Y
 function applySobel(type) {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const width = imageData.width;
@@ -146,12 +116,4 @@ function applySobel(type) {
   }
 
   ctx.putImageData(output, 0, 0);
-}
-
-// Quay lại trang chọn ảnh
-function resetEditor() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  document.getElementById('upload').value = '';
-  hero.style.display = 'flex';
-  editor.style.display = 'none';
 }
