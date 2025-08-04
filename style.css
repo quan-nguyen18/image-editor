@@ -1,4 +1,4 @@
-/* Font chính */
+/* style.css hoàn chỉnh - đã hỗ trợ giao diện OCR */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Caveat:wght@700&display=swap');
 
 * {
@@ -9,13 +9,12 @@
 }
 
 body {
-  background: linear-gradient(to bottom right, #fff0f5, #e0f7fa); /* Hồng phấn → xanh baby */
+  background: linear-gradient(to bottom right, #fff0f5, #e0f7fa);
   color: #333;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-/* Welcome chữ lớn */
 .big-welcome {
   position: absolute;
   top: 5%;
@@ -73,7 +72,6 @@ body {
   font-size: 1rem;
 }
 
-/* Nút upload ảnh (chuyển trang hoặc file) */
 .upload-btn, .btn {
   display: inline-block;
   background: #f8a8c4;
@@ -94,7 +92,6 @@ body {
   transform: scale(1.05);
 }
 
-/* Giao diện chỉnh sửa */
 .editor {
   display: none;
   padding: 2rem;
@@ -134,26 +131,6 @@ canvas {
   margin-top: 1rem;
 }
 
-/* Nút chỉnh sửa */
-.btn {
-  background: #f8a8c4; /* Hồng chủ đạo */
-  color: white;
-  border: none;
-  padding: 0.7rem 1.4rem;
-  border-radius: 30px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(243, 141, 179, 0.3);
-  transition: all 0.2s ease;
-}
-
-.btn:hover {
-  background: #ec6d9f;
-  transform: scale(1.05);
-}
-
-/* Nút outline phụ - màu xanh baby */
 .btn.outline {
   background: transparent;
   border: 2px solid #a5d8ff;
@@ -166,21 +143,17 @@ canvas {
   color: #1c7ed6;
 }
 
-/* Nếu bạn muốn thêm nút cam đào hoặc tím pastel thì có thể thêm class riêng nữa */
-.btn.peach {
-  background: #ffc9a9;
+#ocrResult {
+  margin-top: 1.5rem;
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 12px;
+  max-width: 90%;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  font-family: monospace;
+  white-space: pre-wrap;
+  color: #212529;
 }
-.btn.lavender {
-  background: #e6ccff;
-}
-
-/* Responsive bonus */
-@media (max-width: 600px) {
-  .glass-box {
-    padding: 2rem;
-  }
-  .btn, .upload-btn {
-    font-size: 0.9rem;
-    padding: 0.6rem 1.2rem;
-  }
+input[type="range"] {
+  display: none !important;
 }

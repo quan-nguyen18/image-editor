@@ -1,3 +1,4 @@
+// script.js hoàn chỉnh
 const upload = document.getElementById('upload');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -9,11 +10,9 @@ let originalImage = new Image();
 let rotation = 0;
 let brightness = 0;
 
-// Khi người dùng chọn ảnh
 upload.addEventListener('change', function () {
   const file = this.files[0];
   if (!file) return;
-
   const reader = new FileReader();
   reader.onload = function (e) {
     originalImage.onload = () => {
@@ -36,10 +35,10 @@ function applyEdit(type) {
   } else if (type === 'darken') {
     brightness -= 10;
   } else if (type === 'reset') {
-  rotation = 0;
-  brightness = 0;
-  clearOverlay(); // ✅ Xóa khung phát hiện đối tượng
-
+    rotation = 0;
+    brightness = 0;
+    clearOverlay();
+    document.getElementById('ocrResult').innerText = '';
   } else if (type === 'sobelX' || type === 'sobelY') {
     applySobel(type);
     return;
@@ -52,13 +51,11 @@ function renderImage() {
   const radians = rotation * Math.PI / 180;
   const w = originalImage.width;
   const h = originalImage.height;
-
   const rotatedW = (rotation % 180 === 0) ? w : h;
   const rotatedH = (rotation % 180 === 0) ? h : w;
 
   const canvasMaxW = 600;
   const canvasMaxH = 500;
-
   canvas.width = canvasMaxW;
   canvas.height = canvasMaxH;
 
@@ -67,7 +64,6 @@ function renderImage() {
   ctx.filter = `brightness(${100 + brightness}%)`;
 
   const scale = Math.min(canvas.width / rotatedW, canvas.height / rotatedH);
-
   ctx.translate(canvas.width / 2, canvas.height / 2);
   ctx.rotate(radians);
   ctx.scale(scale, scale);
@@ -119,13 +115,11 @@ function applySobel(type) {
   ctx.putImageData(output, 0, 0);
 }
 
-function resetEditor() {
-  rotation = 0;
-  brightness = 0;
-  renderImage();
+function clearOverlay() {
+  overlayCtx.clearRect(0, 0, overlay.width, overlay.height);
 }
-const uploadAgain = document.getElementById('uploadAgain');
 
+const uploadAgain = document.getElementById('uploadAgain');
 uploadAgain.addEventListener('change', function () {
   const file = this.files[0];
   if (!file) return;
@@ -133,19 +127,13 @@ uploadAgain.addEventListener('change', function () {
   const reader = new FileReader();
   reader.onload = function (e) {
     originalImage.onload = () => {
-      // Reset toàn bộ trạng thái
       rotation = 0;
       brightness = 0;
       clearOverlay();
+      document.getElementById('ocrResult').innerText = '';
       renderImage();
-
-      // ❌ Không quay về trang welcome nữa
-      // hero.style.display = 'flex';
-      // editor.style.display = 'none';
     };
     originalImage.src = e.target.result;
   };
   reader.readAsDataURL(file);
-});function clearOverlay() {
-  overlayCtx.clearRect(0, 0, overlay.width, overlay.height);
-}
+});
